@@ -1,6 +1,23 @@
-struct Square {
-    widht: u32,
-    hiehgt: u32,
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+// here we use (Method)for our Rectangle struct
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
+    fn square(size: u32) -> Rectangle {
+        Rectangle {
+            width: size,
+            height: size,
+        }
+    }
 }
 struct User {
     username: String,
@@ -23,11 +40,20 @@ fn main() {
         email: String::from("yoyo@email.com"),
         ..user_two
     };
-    let sq = Sqaure {
-        width: 50,
-        height: 50,
+    let rect = Rectangle::square(25);
+    println!("rect: {:?}", rect);
+    // since rect is an instance of Reactnagle it has the method of .aera()
+    println!("area is : {}", rect.area());
+    let rect1 = Rectangle {
+        width: 40,
+        height: 40,
     };
-    println!("area is : {}", area(sq));
+    let rect2 = Rectangle {
+        width: 60,
+        height: 60,
+    };
+    println!("rect can hold react1: {}", rect.can_hold(&rect1));
+    println!("react can hold rext2: {}", rect.can_hold(&rect2));
 }
 
 fn build_user(username: String, email: String) -> User {
@@ -37,8 +63,4 @@ fn build_user(username: String, email: String) -> User {
         sign_in_count: 1,
         active: true,
     }
-}
-
-fn area(square: &Sqaure) -> u32 {
-    square.width * square.height
 }
