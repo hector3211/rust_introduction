@@ -5,20 +5,23 @@ fn main() {
     println!("{},{}", first_in_tup, second_in_tup);
     // you can de-structure them also like the following
     println!("you can also de-structure theme like {}", tup.1);
-    // Lists
+    // Arrays and going through arrays
     let list = [200, 10, 5];
     let last_in_list = list[2];
-    new_func();
-    other_func(5, 1);
-}
-
-fn new_func() {
-    println!("hey you called the 'new_func' function!");
+    println!("{}", last_in_list);
+    let sum = other_func(10, 1);
+    println!("sum: {}", sum);
+    // four loop
+    for item in list.iter() {
+        println!("items in list are: {}", item)
+    }
+    // four loop going though a range
+    for number in 1..10 {
+        println!("{}", number);
+    }
 }
 
 fn other_func(x: i32, y: i32) -> i32 {
-    println!("{},{} from the 'other_func'", x, y);
-    let sum: i32 = x + y;
     // usually the last expression in a function is automatically returned
-    return sum;
+    x + y
 }
