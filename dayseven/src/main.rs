@@ -18,20 +18,8 @@ fn main() {
             println!("{}", "Goodbye".red());
             break;
         }
-        if computer_pick == 0 {
-            println!("{}", "computer picked: rock".red());
-        } else if computer_pick == 1 {
-            println!("{}", "computer picked: paper".red());
-        } else if computer_pick == 2 {
-            println!("{}", "computer picked: scissors".red());
-        }
-        if player_pick == 0 {
-            println!("{}", "player picked: rock".blue());
-        } else if player_pick == 1 {
-            println!("{}", "player picked: paper".blue());
-        } else if player_pick == 2 {
-            println!("{}", "player picked: scissors".blue());
-        }
+        get_pick(computer_pick, "Computer".to_string());
+        get_pick(player_pick, "player".to_string());
         match player_pick.cmp(&computer_pick) {
             Ordering::Less => println!("{}", "you lose".red()),
             Ordering::Greater => {
@@ -40,5 +28,13 @@ fn main() {
             }
             Ordering::Equal => println!("{}", "draw".yellow()),
         }
+    }
+}
+fn get_pick(number: u8, person: String) {
+    match number {
+        0 => println!("{} picked: {}", person, "rock"),
+        1 => println!("{} picked: {}", person, "paper"),
+        2 => println!("{} picked: {}", person, "scissors"),
+        _ => println!("{} picked: {}", person, "invalid pick"),
     }
 }
