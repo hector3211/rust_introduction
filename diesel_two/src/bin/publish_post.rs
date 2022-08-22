@@ -1,5 +1,5 @@
 // to publish a post
-// cargo rin --bin publish_pots <id of post>
+// cargo run --bin publish_post <id of post>
 extern crate diesel;
 extern crate diesel_two;
 
