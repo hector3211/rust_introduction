@@ -1,0 +1,17 @@
+[package]
+name = "server"
+version = "0.1.0"
+edition = "2021"
+
+
+[dependencies]
+tokio = {version="1",features=["full"]}
+futures="0.3"
+thiserror="1.0"
+#Json dependencies
+serde = {version="1.0",features=["derive"]}
+serde_json="1.0"
+# backend framework dependency
+warp="0.3"
+# DB
+sqlx = {version="0.5", features=["runtime-tokio-rustls","postgres"]}
