@@ -25,3 +25,4 @@ fn other_func(x: i32, y: i32) -> i32 {
     // usually the last expression in a function is automatically returned
     x + y
 }
+fn test(x: &str) ->

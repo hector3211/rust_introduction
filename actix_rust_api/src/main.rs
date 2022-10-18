@@ -1,12 +1,6 @@
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, Result};
-use serde::{Deserialize, Serialize};
 mod api;
 use api::task::{data, index, json_data, user};
-
-#[get("/")]
-async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
-}
 
 #[post("/echo")]
 async fn echo(req_body: String) -> impl Responder {
@@ -24,7 +18,6 @@ async fn main() -> std::io::Result<()> {
             .service(index)
             .service(json_data)
             .service(user)
-            .service(hello)
             .service(echo)
             .route("/hey", web::get().to(manual_hello))
             .route("/data", web::get().to(data))

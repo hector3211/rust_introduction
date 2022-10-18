@@ -5,7 +5,7 @@ enum Msg {
 }
 
 struct CounterComponent {
-    count: i64,
+    count: i32,
 }
 
 impl Component for CounterComponent {

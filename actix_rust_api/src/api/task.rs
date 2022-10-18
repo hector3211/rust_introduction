@@ -2,19 +2,17 @@ use actix_web::{get, post, put, web, HttpRequest, HttpResponse, Responder, Resul
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct User {
     name: String,
 }
 // add to database
 #[get("/json/{name}")]
-pub async fn json_data(name: web::Path<User>) -> web::Json<String> {
-    return web::Json(name.into_inner().name);
-}
-
-#[derive(Deserialize)]
-pub struct Info {
-    username: String,
+pub async fn json_data(name: web::Path<String>) -> Result<impl Responder> {
+    let data = User {
+        name: name.to_string(),
+    };
+    Ok(web::Json(data))
 }
 
 // deserialize `Info` from request's body
@@ -25,8 +23,8 @@ pub struct Info {
  * so its http://127.0.0.1:8080/username
  */
 #[get("/")]
-pub async fn index(info: web::Json<Info>) -> Result<String> {
-    Ok(format!("Welcome {}!", info.username))
+pub async fn index() -> impl Responder {
+    HttpResponse::Ok().body("hello this is index")
 }
 
 #[derive(Deserialize)]
