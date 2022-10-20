@@ -1,6 +1,8 @@
 use std::collections::HashMap;
 use serde::{Deserialize,Serialize};
-use serde_json::{Value};
+
+const URL:&str = "https://pokeapi.co/api/v2/pokemon/";
+
 #[derive(Deserialize,Serialize,Debug)]
 struct Pokemon {
     name:Option<String>,
@@ -9,15 +11,35 @@ struct Pokemon {
 
 #[derive(Deserialize,Serialize,Debug)]
 struct Results {
-    results: Vec<Pokemon>,
+    results: Option<Vec<Pokemon>>,
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let all_pokemon =  get_all().await?;
+    println!("{:#?}",all_pokemon);
+    let new_selected_pokemon = selected_pokemon("charmander".to_string()).await?;
+    println!("{:#?}",new_selected_pokemon);
+    Ok(())
+}
+
+async fn get_all() -> Result<(), Box<dyn std::error::Error>> {
     let resp = reqwest::get("https://pokeapi.co/api/v2/pokemon/")
         .await?
         .json::<Results>()
         .await?;
-    println!("{:#?}", resp);
-    Ok(())
+    Ok(println!("{:#?}",resp))
 }
+
+#[derive(Deserialize,Serialize,Debug)]
+struct Name{
+    name: String,
+}
+async fn selected_pokemon(pokemon_name:String) -> Result<(), Box<dyn std::error::Error>>{
+    let resp = reqwest::get(format!("{}{}",URL,pokemon_name))
+        .await?
+        .json::<Name>()
+        .await?;
+    Ok(println!("{:#?}",resp))
+}
+
