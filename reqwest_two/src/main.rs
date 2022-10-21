@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use serde::{Deserialize,Serialize};
 
 const URL:&str = "https://pokeapi.co/api/v2/pokemon/";
@@ -17,9 +16,8 @@ struct Results {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let all_pokemon =  get_all().await?;
-    println!("{:#?}",all_pokemon);
     let new_selected_pokemon = selected_pokemon("charmander".to_string()).await?;
-    println!("{:#?}",new_selected_pokemon);
+    println!("{:#?}{:#?}",new_selected_pokemon,all_pokemon);
     Ok(())
 }
 
@@ -42,4 +40,6 @@ async fn selected_pokemon(pokemon_name:String) -> Result<(), Box<dyn std::error:
         .await?;
     Ok(println!("{:#?}",resp))
 }
+
+
 
