@@ -79,6 +79,6 @@ pub async fn get_pokemon_picture(name: web::Path<String>) -> Result<impl Respond
         .await?
         .json::<Sprites>()
         .await?;
-    Ok(HttpResponse::Ok().json(pokemon.sprites.other))
+    Ok(HttpResponse::Ok().json(pokemon))
 }
 
