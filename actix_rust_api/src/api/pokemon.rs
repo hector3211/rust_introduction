@@ -14,7 +14,8 @@ pub struct Results {
 }
 
 #[get("/pokemons")]
-pub async fn get_all_pokemons() -> Result<impl Responder, Box<dyn std::error::Error>> {
+pub async fn get_all_pokemons() 
+-> Result<impl Responder, Box<dyn std::error::Error>> {
     let pokemon  = reqwest::Client::new()
         .get(POKEMON_URL)
         .send()
@@ -72,7 +73,9 @@ pub struct Sprites {
 
 
 #[get("/pokemons/picture/{name}")]
-pub async fn get_pokemon_picture(name: web::Path<String>) -> Result<impl Responder, Box<dyn std::error::Error>>{
+pub async fn get_pokemon_picture(
+    name: web::Path<String>
+) -> Result<impl Responder, Box<dyn std::error::Error>>{
     let pokemon = reqwest::Client::new()
         .get(format!("{}{}",POKEMON_URL,name.to_string()))
         .send()

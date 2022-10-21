@@ -1,6 +1,10 @@
 use actix_web::{ post, web, App, HttpResponse, HttpServer, Responder};
 mod api;
-use api::pokemon::{get_all_pokemons, get_selected_pokemon, get_pokemon_picture};
+use api::pokemon::{
+    get_all_pokemons, 
+    get_selected_pokemon, 
+    get_pokemon_picture
+};
 use api::task::{data, index, json_data, user};
 
 #[post("/echo")]
