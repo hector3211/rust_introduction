@@ -1,6 +1,6 @@
 diesel::table! {
-    // use diesel::sql_types::*;
-    // use diesel_full_text_search::types::*;
+    use diesel::sql_types::*;
+    use diesel_full_text_search::types::*;
 
     entries (id) {
         id -> Int4,
