@@ -20,10 +20,10 @@ pub enum Commands {
 pub struct NewEntry {
     /// First enter your name
     #[arg(long)]
-    pub name:Option<String>,
+    pub name:String,
     /// second enter Invoice number
     #[arg(long,value_parser = clap::value_parser!(u32).range(1..))]
-    pub invoice:Option<u32>,
+    pub invoice:u32,
     /// third is the job paid for?
     #[arg(long)]
     pub paid:Option<bool>,

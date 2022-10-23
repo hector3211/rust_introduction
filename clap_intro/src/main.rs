@@ -1,28 +1,17 @@
 // Clap setup
 use clap::Parser;
 mod args;
-use args::{ClapArgs,Commands,NewEntry};
+use args::{ClapArgs,Commands};
 // Anyhow 
 use anyhow::Result;
 // Diesel setup
-use diesel::pg::PgConnection;
+mod dbstuff;
+use dbstuff::{db_conn,show_entries};
 use diesel::prelude::*;
-// ENV setup
-use dotenvy::dotenv;
-use std::env;
 // Models and Schemas
 pub mod models;
-use self::models::*;
 pub mod schema;
 
-pub fn establish_connection() -> PgConnection {
-    dotenv().ok();
-
-    let database_url = env::var("DATABASE_URL")
-        .expect("DATABASE_URL must be set");
-    PgConnection::establish(&database_url)
-        .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
-}
 
 fn main() ->Result<()>{
     let cli  = ClapArgs::parse();
