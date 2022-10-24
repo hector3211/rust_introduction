@@ -1,37 +1,25 @@
+#[macro_use]
+extern crate diesel;
+extern crate dotenvy;
+// mods
+mod args;
+mod db;
+mod models;
+mod schema;
+mod controllers;
 // Clap setup
 use clap::Parser;
-mod args;
-use args::{ClapArgs,Commands};
+use args::{CliArgs,Commands};
 // Anyhow 
 use anyhow::Result;
-// Diesel setup
-mod dbstuff;
-use dbstuff::{db_conn,show_entries};
-use diesel::prelude::*;
-// Models and Schemas
-pub mod models;
-pub mod schema;
-
+// controllers
+use crate::controllers::show_entries::handle_entry_command;
 
 fn main() ->Result<()>{
-    let cli  = ClapArgs::parse();
+    let cli  = CliArgs::parse();
 
-    println!("\n");
-    println!("\n");
-    match &cli.command {
-          Commands::New(name) => {
-            println!("Employee is: {:?}",name.name);
-        }
-    }
-    match &cli.command {
-          Commands::New(invoice) => {
-            println!("Invoice number #: {:?}",invoice.invoice);
-        }
-    }
-    match &cli.command {
-          Commands::New(paid) => {
-            println!("is job paid? {:?}",paid.paid);
-        }
+    match cli.command {
+        Commands::New(entry) => handle_entry_command(entry)
     }
     Ok(())
 }
@@ -39,5 +27,5 @@ fn main() ->Result<()>{
 #[test]
 fn verify_cli() {
     use clap::CommandFactory;
-    ClapArgs::command().debug_assert()
+    CliArgs::command().debug_assert()
 }
