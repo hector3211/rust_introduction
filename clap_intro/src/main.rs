@@ -13,13 +13,17 @@ use args::{CliArgs,Commands};
 // Anyhow 
 use anyhow::Result;
 // controllers
-use crate::controllers::show_entries::handle_entry_command;
+use crate::controllers::show_entries::{
+    handle_entry_command,
+    handle_show_command
+};
 
 fn main() ->Result<()>{
     let cli  = CliArgs::parse();
 
     match cli.command {
-        Commands::New(entry) => handle_entry_command(entry)
+        Commands::New(entry) => handle_entry_command(entry),
+        Commands::Show => handle_show_command()
     }
     Ok(())
 }

@@ -11,6 +11,20 @@ use crate::models::{Entry,NewEntry};
 // diesel
 use diesel::prelude::*;
 
+pub fn handle_show_command(){
+    use crate::schema::entries::dsl::*;
+
+    let mut db_conn = establish_connection();
+    let results = entries
+    .load::<Entry>(& mut db_conn)
+        .unwrap();
+
+    println!("Displaying {} entries",results.len());
+    for entry in results {
+        println!("{:?}",entry);
+    }
+}
+
 // handle cli commands
 pub fn handle_entry_command(entry: EntryCommand){
     let command = entry.command;
@@ -21,9 +35,6 @@ pub fn handle_entry_command(entry: EntryCommand){
         // EntrySubcommands::Update(entry) => {
         //     update_entry(entry);
         // }
-        EntrySubcommands::Show => {
-            show_entries();
-        }
     }
 }
 // handle new entry function
@@ -42,20 +53,6 @@ fn create_entry(entry: CreateEntry) {
     .values(&new_entry)
         .execute(& mut db_connect)
         .expect("Error Saving entry");
-}
-// show entries functin
-fn show_entries() {
-    use crate::schema::entries::dsl::*;
-
-    let mut db_conn = establish_connection();
-    let results = entries
-    .load::<Entry>(& mut db_conn)
-        .unwrap();
-
-    println!("Displaying {} entries",results.len());
-    for entry in results {
-        println!("{:?}",entry);
-    }
 }
 
 // fn update_entry(entry: UpdateEntry){

@@ -10,7 +10,10 @@ pub struct CliArgs {
 
 #[derive(Debug,Subcommand)]
 pub enum Commands {
+    /// Create a new entry
     New(EntryCommand),
+    /// Show all entries
+    Show,
 }
 
 #[derive(Debug,Args)]
@@ -23,22 +26,18 @@ pub struct EntryCommand {
 pub enum EntrySubcommands {
     Create(CreateEntry),
     // Update(UpdateEntry),
-    Show,
-
 }
 
 #[derive(Debug,Args)]
 pub struct CreateEntry {
-    /// First enter your name
     #[arg(long)]
     pub name:String,
-    /// second enter Invoice number
     #[arg(long,value_parser = clap::value_parser!(i32).range(1..))]
     pub invoice:i32,
-    /// third is the job paid for?
     #[arg(long)]
     pub paid:bool,
 }
+
 #[derive(Debug,Args)]
 pub struct UpdateEntry {
     /// Update paid feild
