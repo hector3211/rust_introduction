@@ -1,4 +1,3 @@
-use diesel::prelude::*;
 use crate::schema::entries;
 #[derive(Queryable,Debug)]
 pub struct Entry {

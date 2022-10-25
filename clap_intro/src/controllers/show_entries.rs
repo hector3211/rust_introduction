@@ -57,10 +57,18 @@ fn create_entry(entry: CreateEntry) {
 
 // fn update_entry(entry: UpdateEntry){
 //     println!("Updating entry {:?}",entry);
-//     use crate::schema::entries::*;
+//     use crate::schema::entries::dsl::*;
 //
 //     let db_conn = establish_connection();
 //     let updated_entry = Entry {
+//         id:entry.id,
+//         invoice: entry.invoice,
+//         name: entry.name,
 //         paid:entry.paid,    
 //     };
+//
+//     diesel::update(entries.find(entry.id))
+//         .set(&updated_entry)
+//         .execute(& mut db_conn)
+//         .expect("Error updating entry");
 // }

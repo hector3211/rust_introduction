@@ -40,7 +40,12 @@ pub struct CreateEntry {
 
 #[derive(Debug,Args)]
 pub struct UpdateEntry {
-    /// Update paid feild
+    #[arg(long)]
+    pub id:i32,
+    #[arg(long)]
+    pub name:String,
+    #[arg(long,value_parser = clap::value_parser!(i32).range(1..))]
+    pub invoice:i32,
     #[arg(long)]
     pub paid:bool,
 }
