@@ -19,9 +19,10 @@ pub fn handle_show_command(){
     .load::<Entry>(& mut db_conn)
         .unwrap();
 
+    println!("\n");
     println!("Displaying {} entries",results.len());
     for entry in results {
-        println!("{:?}",entry);
+        println!("✅{:?}",entry);
     }
 }
 
@@ -39,20 +40,20 @@ pub fn handle_entry_command(entry: EntryCommand){
 }
 // handle new entry function
 fn create_entry(entry: CreateEntry) {
-    println!("Creating entry {:?}",entry);
+    println!("Creating entry ✅{:?}",entry);
     use crate::schema::entries::dsl::*;
 
     let mut db_connect = establish_connection();
     let new_entry = NewEntry {
         name: &entry.name,
         invoice: &entry.invoice,
-        paid:&entry.paid,
+        paid:&entry.paid.unwrap(),
     };
 
     diesel::insert_into(entries)
     .values(&new_entry)
         .execute(& mut db_connect)
-        .expect("Error Saving entry");
+        .expect("❌ Error Saving entry");
 }
 
 // fn update_entry(entry: UpdateEntry){

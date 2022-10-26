@@ -12,6 +12,8 @@ pub struct CliArgs {
 pub enum Commands {
     /// Create a new entry
     New(EntryCommand),
+    /// Update a entyr
+    // Update(UpdateEntry),
     /// Show all entries
     Show,
 }
@@ -25,17 +27,16 @@ pub struct EntryCommand {
 #[derive(Debug,Subcommand)]
 pub enum EntrySubcommands {
     Create(CreateEntry),
-    // Update(UpdateEntry),
 }
 
 #[derive(Debug,Args)]
 pub struct CreateEntry {
-    #[arg(long)]
+    #[arg(short,long)]
     pub name:String,
-    #[arg(long,value_parser = clap::value_parser!(i32).range(1..))]
+    #[arg(short,long,value_parser = clap::value_parser!(i32).range(1..))]
     pub invoice:i32,
-    #[arg(long)]
-    pub paid:bool,
+    #[arg(short,long)]
+    pub paid:Option<bool>,
 }
 
 #[derive(Debug,Args)]
